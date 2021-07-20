@@ -43,3 +43,10 @@ func main(){
 
 	fmt.Println("HI I'M INTENTIONALLY USING VULNERABLE LIBS")
 }
+
+func sanitizeUrl(redir string) string {
+	if len(redir) > 0 && redir[0] == '/' {
+		return redir
+	}
+	return "/"
+}
