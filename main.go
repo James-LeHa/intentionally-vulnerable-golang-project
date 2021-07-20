@@ -58,3 +58,13 @@ func abs(x int) int {
 		return x
 	}
 }
+
+func processRequest(r *http.Request, doc tree.Node) {
+	r.ParseForm()
+	username := r.Form.Get("username")
+
+	// BAD: User input used directly in an XPath expression
+	xPath := goxpath.MustParse("//users/user[login/text()='" + username + "']/home_dir/text()")
+	unsafeRes, _ := xPath.ExecBool(doc)
+	fmt.Println(unsafeRes)
+}
